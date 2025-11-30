@@ -1,0 +1,93 @@
+# Daftar untuk menyimpan data mahasiswa (nama dan nilai)
+data_mahasiswa = []
+
+def tambah():
+    """Fungsi untuk menambahkan data mahasiswa baru."""
+    nama = input("Masukkan Nama Mahasiswa: ")
+    nilai = input("Masukkan Nilai Mahasiswa: ")
+    # Membuat dictionary baru untuk mahasiswa
+    mahasiswa_baru = {"nama": nama, "nilai": nilai}
+    data_mahasiswa.append(mahasiswa_baru)
+    print(f"\n✅ Data '{nama}' berhasil ditambahkan.")
+
+def tampilkan():
+    """Fungsi untuk menampilkan seluruh daftar nilai mahasiswa."""
+    if not data_mahasiswa:
+        print("\n⚠️ Daftar mahasiswa kosong.")
+        return
+
+    print("\n--- DAFTAR NILAI MAHASISWA ---")
+    for i, data in enumerate(data_mahasiswa, 1):
+        print(f"{i}. Nama: {data['nama']}, Nilai: {data['nilai']}")
+    print("------------------------------")
+
+def hapus(nama):
+    """Fungsi untuk menghapus data mahasiswa berdasarkan nama."""
+    global data_mahasiswa # Perlu untuk memodifikasi list global
+    
+    # Mencari index data yang akan dihapus
+    indeks_hapus = -1
+    for i, data in enumerate(data_mahasiswa):
+        if data['nama'].lower() == nama.lower():
+            indeks_hapus = i
+            break
+    
+    if indeks_hapus != -1:
+        # Menghapus data dari list
+        nama_dihapus = data_mahasiswa[indeks_hapus]['nama']
+        del data_mahasiswa[indeks_hapus]
+        print(f"\n🗑️ Data '{nama_dihapus}' berhasil dihapus.")
+    else:
+        print(f"\n❌ Data mahasiswa dengan nama '{nama}' tidak ditemukan.")
+
+def ubah(nama):
+    """Fungsi untuk mengubah data mahasiswa berdasarkan nama."""
+    
+    indeks_ubah = -1
+    for i, data in enumerate(data_mahasiswa):
+        if data['nama'].lower() == nama.lower():
+            indeks_ubah = i
+            break
+    
+    if indeks_ubah != -1:
+        print(f"\n--- Mengubah Data: {data_mahasiswa[indeks_ubah]['nama']} ---")
+        nilai_baru = input("Masukkan Nilai Baru: ")
+        
+        # Memperbarui nilai
+        data_mahasiswa[indeks_ubah]['nilai'] = nilai_baru
+        print(f"\n🔄 Data '{data_mahasiswa[indeks_ubah]['nama']}' berhasil diubah.")
+    else:
+        print(f"\n❌ Data mahasiswa dengan nama '{nama}' tidak ditemukan.")
+
+# --- Program Utama (Contoh Penggunaan) ---
+def main_menu():
+    while True:
+        print("\n===============================")
+        print("SISTEM MANAJEMEN NILAI MAHASISWA")
+        print("===============================")
+        print("1. Tambah Data")
+        print("2. Tampilkan Data")
+        print("3. Hapus Data")
+        print("4. Ubah Data")
+        print("5. Keluar")
+        
+        pilihan = input("Masukkan pilihan (1-5): ")
+        
+        if pilihan == '1':
+            tambah()
+        elif pilihan == '2':
+            tampilkan()
+        elif pilihan == '3':
+            nama = input("Masukkan nama mahasiswa yang akan dihapus: ")
+            hapus(nama)
+        elif pilihan == '4':
+            nama = input("Masukkan nama mahasiswa yang akan diubah: ")
+            ubah(nama)
+        elif pilihan == '5':
+            print("\nTerima kasih! Program selesai.")
+            break
+        else:
+            print("\n❗ Pilihan tidak valid. Silakan coba lagi.")
+
+# Jalankan program utama
+# main_menu()
